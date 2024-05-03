@@ -1,4 +1,4 @@
-import { connectToDatabase } from "@utils/databse";
+import { connectToDatabase } from "@utils/database";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
@@ -22,7 +22,7 @@ const handler = NextAuth({
 
   async session({session}){
     const sessionUser = await User.findOne({email: session.user.email});
-    console.log(sessionUser)
+    
     session.user.id = sessionUser._id.toString(); // Corrected method name is toString()
 
     return session;
@@ -40,9 +40,9 @@ const handler = NextAuth({
    */
   async signIn({ user}) {
     const isAllowedToSignIn = true
-    console.log("Profile:", JSON.stringify(user, null, 2));
+   
 
-  
+  console.log(user)
       const username =
         user && user.name
           ? user.name.replace(" ", "").toLowerCase()
@@ -57,7 +57,7 @@ const handler = NextAuth({
         await User.create({
           username: username,
           email: user.email,
-          image: user.picture,
+          image: user.image,
         });
       }
     } catch (error) {

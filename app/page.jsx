@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from 'antd';
+import Feed from '@components/Feed';
 
 function Home() {
   return (
@@ -14,7 +15,7 @@ AI-Powered Prompts
       <p className='desc text-center'>
         promtopia is an AI-powered platform that helps you discover and share prompts.
       </p>
-
+<Feed/>
     </section>
     
   )

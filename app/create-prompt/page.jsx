@@ -10,22 +10,38 @@ function page() {
     prompt:'',
     tags:[]
   })
+  const {data:session}=useSession()
   const [submitting,setSubmitting]=useState(false)
   const router=useRouter()
-  const createPrompt=async()=>{
+  const createPrompt=async(e)=>{
+    e.preventDefault()
+    setSubmitting(true)
     const {prompt,tags}=post
-    const response=await fetch('/api/prompt/new',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify({
-        prompt,
-        tags
-      })
+   try {
+  const response = await fetch('/api/prompt/new', {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      prompt,
+      tags,
+      userId: session?.user.id  
     })
-    const data=await response.json()
-    router.push(`/prompt/${data._id}`)
+  })
+ 
+  if (response.ok) {
+    router.push('/')
+  }
+} catch (error) {
+  // handle error
+  console.error(error) 
+  alert('Something on client went wrong')
+
+} finally {
+ setSubmitting(false)
+}
+ 
   }
 
   return (

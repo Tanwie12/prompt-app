@@ -35,7 +35,7 @@ useEffect(()=>{
      </Link>
   
      {/* Desktop navigation */}
-     <div className='gap-3 md:gap-4 hidden md:flex'>
+     <div className='gap-4 md:gap-4 hidden md:flex'>
      {session?.user ? (
         <>
 

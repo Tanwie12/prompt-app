@@ -2,13 +2,17 @@
 
 import React from 'react'
 import PromptCard from './PromptCard'
-
+import { useFetch } from '@hooks/useFetch'
 import {useEffect} from'react'
+import { Spin } from 'antd'
 
 function Feed() {
+  
   const [searchText, setSearchText] = React.useState('')
   const [posts, setPosts] = React.useState([])
-
+const {data, loading:isLoading, error} = useFetch('/api/prompt/all','GET')
+console.log(data+"usefetc data")
+console.log(isLoading+"usefetc data")
   const handleChange = (e) => {
     setSearchText(e.target.value)
   }
@@ -25,22 +29,8 @@ function Feed() {
        
       </div>
     )}
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const res = await fetch('/api/prompt/all');
-          if (!res.ok) {
-            throw new Error('Network response was not ok');
-          }
-          const data = await res.json();
-          console.log(data);
-          setPosts(data);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-      fetchData();
-    }, []);
+
+      
     
   return (
    <section className='feed'>
@@ -52,13 +42,21 @@ function Feed() {
      />
     
     </form>
-    <PromptCardList
-    data={posts}
-    handleTagClick={() => {
-      console.log('Tag clicked!')
-    }}
+    {isLoading ?(
+      <Spin size='large'spinning={isLoading} />
+    ) : (
+      <PromptCardList
+      data={data}
+      handleTagClick={() => {
+        console.log('Tag clicked!')
+      }}
+      
+      />
+    )
     
-    />
+    
+    }
+   
    </section>
 
   )

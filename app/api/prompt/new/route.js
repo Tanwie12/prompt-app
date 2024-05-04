@@ -11,7 +11,7 @@ export const POST=async(req)=>{
             tag:tags
         })
         await newPrompt.save();
-        return new Response(JSON.stringify(newPrompt),{status:201})
+        return new Response(JSON.stringify(newPrompt),{status:200})
     }catch(err){
         console.log(err)
         return new Response("Error creating prompt", {status:500})

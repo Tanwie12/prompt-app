@@ -13,6 +13,8 @@ function Feed() {
  const {data, loading:isLoading, error,fetchData} = useFetch({url: '/api/prompt/all',
  method: 'get',
  })
+ console.log("first")
+ console.log(data)
 
   const handleChange = (e) => {
     setSearchText(e.target.value)

@@ -1,34 +1,39 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { fetchData } from 'next-auth/client/_utils';
+import axios, { AxiosRequestConfig } from 'axios';
 
-export const useFetch = (url, method, body) => {
-    const [loading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
-    const [error, setError] = useState(null); // Change to null to distinguish between loading and error
+type Props = {
+    url: string,
+    method: 'get' | 'post' | 'put' | 'delete',
+    body?: any
+}
+
+export const useFetch = ({ url, method, body }: Props) => {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [data, setData] = useState<any[]>([]);
+    const [error, setError] = useState<Error | null>(null);
+
+    const fetchData = async () => {
+        try {
+            setLoading(true);
+            const config: AxiosRequestConfig = {
+                method: method.toUpperCase(),
+                url: url,
+                data: body,
+            };
+            const response = await axios(config);
+            if (response.status !== 200) {
+                throw new Error('Network response was not ok');
+            }
+            setData(response.data);
+            setError(null);
+        } catch (error) {
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                const config = {
-                    method: method.toUpperCase(), // Ensure method is uppercase
-                    url: url,
-                    data: body, // Pass body if provided
-                };
-                const response = await axios(config);
-                if (response.status !== 200) {
-                    throw new Error('Network response was not ok');
-                }
-                setData(response.data);
-                setError(null); // Reset error state
-            } catch (error) {
-                setError(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchData();
     }, [url, method, body]);
 
@@ -36,6 +41,6 @@ export const useFetch = (url, method, body) => {
         loading,
         data,
         error,
-        fetchData
+        fetchData // Return fetchData function
     };
 };

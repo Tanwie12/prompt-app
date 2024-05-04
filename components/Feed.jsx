@@ -10,9 +10,10 @@ function Feed() {
   
   const [searchText, setSearchText] = React.useState('')
   const [posts, setPosts] = React.useState([])
-const {data, loading:isLoading, error,fetchData} = useFetch('/api/prompt/all','GET')
-console.log(data+"usefetc data")
-console.log(isLoading+"usefetc data")
+ const {data, loading:isLoading, error,fetchData} = useFetch({url: '/api/prompt/all',
+ method: 'get',
+ })
+
   const handleChange = (e) => {
     setSearchText(e.target.value)
   }

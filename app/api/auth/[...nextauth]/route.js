@@ -23,8 +23,8 @@ const handler = NextAuth({
   async session({session}){
     const sessionUser = await User.findOne({email: session.user.email});
     
-    session.user.id = sessionUser._id.toString(); // Corrected method name is toString()
-
+    session.user.id = sessionUser._id; // Corrected method name is toString()
+console.log(session.user.id+"the session id")
     return session;
     
    
@@ -42,7 +42,8 @@ const handler = NextAuth({
     const isAllowedToSignIn = true
    
 
-  console.log(user)
+  
+  
       const username =
         user && user.name
           ? user.name.replace(" ", "").toLowerCase()

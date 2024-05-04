@@ -30,7 +30,7 @@ export const useFetch = (url, method, body) => {
         };
 
         fetchData();
-    }, [url, method, body]);
+    }, [url]);
 
     return {
         loading,

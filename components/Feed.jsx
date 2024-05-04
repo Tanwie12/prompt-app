@@ -4,13 +4,13 @@ import React from 'react'
 import PromptCard from './PromptCard'
 import { useFetch } from '@hooks/useFetch'
 import {useEffect} from'react'
-import { Spin } from 'antd'
+import { Button, Spin } from 'antd'
 
 function Feed() {
   
   const [searchText, setSearchText] = React.useState('')
   const [posts, setPosts] = React.useState([])
-const {data, loading:isLoading, error} = useFetch('/api/prompt/all','GET')
+const {data, loading:isLoading, error,fetchData} = useFetch('/api/prompt/all','GET')
 console.log(data+"usefetc data")
 console.log(isLoading+"usefetc data")
   const handleChange = (e) => {
@@ -34,6 +34,7 @@ console.log(isLoading+"usefetc data")
     
   return (
    <section className='feed'>
+    <Button className='btn-primary' onClick={()=>{fetchData()}}>REfect</Button>
     <form className='flex w-full flex-col gap-4'>
      <input type="text" placeholder='Search for a tag or username' className='search_input peer'
      value={searchText}

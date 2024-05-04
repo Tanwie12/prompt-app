@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { fetchData } from 'next-auth/client/_utils';
 
 export const useFetch = (url, method, body) => {
     const [loading, setLoading] = useState(true);
@@ -35,5 +36,6 @@ export const useFetch = (url, method, body) => {
         loading,
         data,
         error,
+        fetchData
     };
 };

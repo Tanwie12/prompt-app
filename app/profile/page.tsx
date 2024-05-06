@@ -8,7 +8,7 @@ import { Modal, Spin } from 'antd';
 export default function profile() {
   const [posts, setPosts] = useState([]);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false); // State to control modal visibility
-  const [postToDelete, setPostToDelete] = useState(null); // State to store the post to delete
+  const [postToDelete, setPostToDelete] = useState<any>(null); // State to store the post to delete
   const [deleting, setDeleting] = useState(false); // State to track delete operation
   const router = useRouter();
   const { data: session } = useSession();
@@ -20,7 +20,7 @@ export default function profile() {
   };
 
   useEffect(() => {
-    if (session?.user?.id) {
+    if (session?.user.id) {
       fetchData();
     }
   }, [session?.user?.id]);
@@ -49,7 +49,7 @@ export default function profile() {
       });
 
       // Filter out the deleted post locally
-      setPosts(posts.filter((p) => p._id !== postToDelete?._id));
+      setPosts(posts.filter((p:any) => p._id !== postToDelete?._id));
     } catch (error) {
       console.error("Error deleting prompt:", error);
     } finally {

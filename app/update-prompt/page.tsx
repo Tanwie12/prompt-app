@@ -5,11 +5,12 @@ import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import Form from '@components/Form';
 import { useFetch } from '@hooks/useFetch';
+import { Suspense } from 'react';
 interface PromptData {
   prompt: string;
   tags: string[]; // Assuming tags is an array of strings
 }
-function update() {
+function Update() {
   const [post, setPost] = useState<PromptData>({
     prompt: '',
     tags: []
@@ -63,5 +64,13 @@ function update() {
     />
   );
 }
+export default function UpdateSuspense() {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <Update />
+    </Suspense>
+  );
+}
 
-export default update;
+

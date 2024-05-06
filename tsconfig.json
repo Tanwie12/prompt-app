@@ -32,7 +32,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/Feed.jsx"  ],
   "exclude": [
     "node_modules"
   ]

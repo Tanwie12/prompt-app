@@ -16,12 +16,14 @@ type Props = {
 }
 
 function PromptCard({key,post,handleTagClick,handleDelete,handleEdit,isLoading}: Props) {
+  console.log("the post data")
+  console.log(post)
  const pathName=usePathname()
 const router = useRouter()
 const { data: session } = useSession()
     const [copied, setcopied] = useState('')
     const handleProfileClick = () => {
-      router.push(`/profile/${post.creator._id}`)
+      router.push(`/profile/${post?.creator?._id}`)
     }
     const handleCopy = () => {
       setcopied(post.prompt)
@@ -35,7 +37,7 @@ const { data: session } = useSession()
           onClick={handleProfileClick}
         >
           <Image
-            src={post.creator.image}
+            src={post?.creator?.image}
             alt='user_image'
             width={40}
             height={40}
@@ -44,10 +46,10 @@ const { data: session } = useSession()
 
           <div className='flex flex-col'>
             <h3 className='font-satoshi font-semibold text-gray-900'>
-              {post.creator.username}
+              {post?.creator?.username}
             </h3>
             <p className='font-inter text-sm text-gray-500'>
-              {post.creator.email}
+              {post?.creator?.email}
             </p>
           </div>
         </div>
@@ -74,7 +76,7 @@ const { data: session } = useSession()
         #{post.tag}
       </p>
       {
-         session?.user?.id === post.creator._id && pathName === '/profile' && (
+         session?.user?.id === post?.creator?._id && pathName === '/profile' && (
           <div className=' text-white flex justify-between items-center gap-3'>
             <Button
             

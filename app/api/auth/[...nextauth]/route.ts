@@ -3,7 +3,7 @@ import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import User from "@models/user";
-import Google from "next-auth/providers/google";
+
 
 const handler = NextAuth({
   providers: [
@@ -41,6 +41,7 @@ console.log(session.user.id+"the session id")
    */
     async signIn({ user }: any): Promise<boolean> {
       const isAllowedToSignIn = true;
+      console.log("sign in user")
       console.log(user);
 
       const username =

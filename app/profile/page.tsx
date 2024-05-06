@@ -1,34 +1,59 @@
 'use client'
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
-import Profile from '@components/Profile';
-import { useFetch } from '@hooks/useFetch';
+import React, { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 
-export default function ProfilePage() {
-  const [post, setPost] = React.useState([]);
-  const router = useRouter();
-  const { data: session } = useSession();
-  const {data, loading:isLoading, error,fetchData} = useFetch({url: '/api/prompt/all',
-  method: 'get',
-  })
-  console.log("profile")
-  console.log(data)
+import Profile from '@components/Profile'
+
+export default function profile() {
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [post , setPost] = React.useState([])
+  const router = useRouter()
+  const { data: session } = useSession()
+  const fetchData = async () => {
+    const res = await fetch(
+      `/api/users/${session?.user?.id}/posts`,
+    )
+    const data = await res.json()
+    setPost(data)
+  }
+ useEffect(() => {
+  if (session?.user?.id) {
+    fetchData()
+  } 
+   
+  }, [session?.user?.id,])
+ 
   
+  const handleEdit = (post:any) => {
+    router.push(`/update-prompt?id=${post._id}`)
+  }
+  const handleDelete = async(post:any) => {
+      setIsLoading(true)
 
-  const handleEdit = () => {};
-  const handleDelete = () => {};
 
+    try {
+      await fetch(`/api/prompt/${post._id}`, {
+        method: "DELETE",
+      });
+    } catch (error) {
+      console.error("Error deleting prompt:", error);
+    }
+    finally {
+      setIsLoading(false)
+    }
+    fetchData()
+  }
   return (
-    <></>
-    // <Profile
-    //   name="my profile"
-    //   desc="this is my profile page"
-    //   // data={data} // Pass fetched data here
-    //   // loading={loading} // Pass loading state
-    //   // error={error} // Pass error state
-    //   handleEdit={handleEdit}
-    //   handleDelete={handleDelete}
-    // />
-  );
+    <Profile
+    name={session?.user?.name}
+    desc='this is my profile page'
+    data={post}
+    isLoading={isLoading}
+    handleEdit={handleEdit}
+    handleDelete={handleDelete}
+
+    
+    />
+  )
 }

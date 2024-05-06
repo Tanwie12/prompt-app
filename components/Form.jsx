@@ -30,7 +30,7 @@ function Form({type,post,setPost,handleSubmit,submitting}) {
               <Link href='/' className='text-gray-500'>
                 Cancel
               </Link>
-            <Button type='submit' color='primary' isLoading={submitting}>{submitting ? 'Submitting...' : 'Submit'}</Button>
+            <Button type='submit' color='primary' isLoading={submitting}>{submitting ? 'Submitting...' : `${type}`}</Button>
             </div>
             </form>
       </section>

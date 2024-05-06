@@ -1,17 +1,22 @@
 import React from 'react'
 import { useState } from 'react'
-import { useEffect } from 'react'
+import { Button } from 'antd'
+import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 
 type Props = {
-    key: any,
+    key?: any,
     post: any,
-    handleTagClick: (tag: string) => void
+    handleTagClick?: (tag: string) => void,
+    handleDelete: (post: any) => void,
+    handleEdit: (post: any) => void,
+    isLoading:any,
 }
 
-function PromptCard({key,post,handleTagClick}: Props) {
+function PromptCard({key,post,handleTagClick,handleDelete,handleEdit,isLoading}: Props) {
+ const pathName=usePathname()
 const router = useRouter()
 const { data: session } = useSession()
     const [copied, setcopied] = useState('')
@@ -68,6 +73,27 @@ const { data: session } = useSession()
       >
         #{post.tag}
       </p>
+      {
+         session?.user?.id === post.creator._id && pathName === '/profile' && (
+          <div className=' text-white flex justify-between items-center gap-3'>
+            <Button
+            
+            
+              className='font-inter text-sm text-white bg-primary-300 '
+              onClick={() => handleEdit && handleEdit(post)}
+              >
+              Edit
+            </Button>
+            <Button
+            // loading={isLoading} 
+            className='font-inter  text-white text-sm bg-red-500 '
+            onClick={() => handleDelete && handleDelete(post)}
+            >
+              Delete
+            </Button>
+          </div>
+        )
+      }
 
      
     </div>

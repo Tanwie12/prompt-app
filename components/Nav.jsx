@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect,useState } from 'react'
 import { signIn,signOut,useSession,getProviders } from 'next-auth/react'
-import { Button } from '@nextui-org/react';
+import { Button } from 'antd';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from "@nextui-org/react";
 
 function Nav() {
@@ -42,7 +42,7 @@ useEffect(()=>{
     <Link href={`/create-prompt`} className='black_btn'>
         Create Post
     </Link>
-    <Button type='button' onClick={signOut}> Sign Out</Button>
+    <Button type='link' color='primary' className=''  onClick={signOut}> Sign Out</Button>
     <Link href={`/profile`}>
     <Image
     src={session.user.image}

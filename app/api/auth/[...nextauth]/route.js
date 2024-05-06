@@ -22,7 +22,7 @@ const handler = NextAuth({
 
   async session({session}){
     const sessionUser = await User.findOne({email: session.user.email});
-    
+    console.log(session.user)
     session.user.id = sessionUser._id; // Corrected method name is toString()
 console.log(session.user.id+"the session id")
     return session;
@@ -40,6 +40,7 @@ console.log(session.user.id+"the session id")
    */
   async signIn({ user}) {
     const isAllowedToSignIn = true
+   console.log(user)
    
 
   

@@ -45,7 +45,7 @@ function Feed() {
     
   return (
    <section className='feed'>
-    <Button className='btn-primary' onClick={()=>{fetchData()}}>Refetch datas</Button>
+    {/* <Button className='btn-primary' onClick={()=>{fetchData()}}>Refetch datas</Button> */}
     <form className='flex w-full flex-col gap-4'>
      <input type="text" placeholder='Search for a tag or username' className='search_input peer'
      value={searchText}

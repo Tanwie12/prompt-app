@@ -10,12 +10,16 @@ function Feed() {
   
   const [searchText, setSearchText] = React.useState('')
   const [posts, setPosts] = React.useState([])
- const {data, loading:isLoading, error,fetchData} = useFetch({url: '/api/prompt/all',
- method: 'get',
- })
- console.log("first")
- console.log(data)
 
+ const fetchPosts = async () => {
+  const response = await fetch("/api/prompt/all");
+  const data = await response.json();
+  setPosts(data);
+}
+ 
+ useEffect(() => {
+  fetchPosts();
+}, []);
   const handleChange = (e) => {
     setSearchText(e.target.value)
   }
@@ -37,7 +41,7 @@ function Feed() {
     
   return (
    <section className='feed'>
-    <Button className='btn-primary' onClick={()=>{fetchData()}}>Refetch data</Button>
+    <Button className='btn-primary' onClick={()=>{fetchData()}}>Refetch datas</Button>
     <form className='flex w-full flex-col gap-4'>
      <input type="text" placeholder='Search for a tag or username' className='search_input peer'
      value={searchText}
@@ -50,7 +54,7 @@ function Feed() {
       <Spin size='large'spinning={isLoading} />
     ) : (
       <PromptCardList
-      data={data}
+      data={posts}
       handleTagClick={() => {
         console.log('Tag clicked!')
       }}

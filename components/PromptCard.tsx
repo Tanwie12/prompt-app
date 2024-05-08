@@ -15,7 +15,7 @@ type Props = {
     isLoading:any,
 }
 
-function PromptCard({key,post,handleTagClick,handleDelete,handleEdit,isLoading}: Props) {
+function PromptCard({post,handleTagClick,handleDelete,handleEdit,isLoading}: Props) {
   console.log("the post data")
   console.log(post)
  const pathName=usePathname()

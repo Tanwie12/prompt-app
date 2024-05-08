@@ -1,80 +1,61 @@
-'use client';
-
-import React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { useEffect,useState } from 'react'
-import { signIn,signOut,useSession,getProviders } from 'next-auth/react'
+'use client'
+import React, { useEffect, useState, useMemo } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import { Button } from 'antd';
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from "@nextui-org/react";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from '@nextui-org/react';
 
 function Nav() {
-  const { data: session } = useSession()
- console.log(session)
-     const [providers,setProviders]=useState(null)
+  const { data: session } = useSession();
+  const [providers, setProviders] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-useEffect(()=>{
-   const setUpproviders=async()=>{
-       const response=await getProviders()
-       setProviders(response)
-   }
-    setUpproviders()
-},[session])
+  useEffect(() => {
+    const fetchProviders = async () => {
+      const response = await getProviders();
+      setProviders(response);
+      setLoading(false);
+    };
+    fetchProviders();
+  }, []);
+
+  const providersArray = useMemo(() => Object.values(providers || {}), [providers]);
 
   return (
-    <nav className='flex-between items-center w-full pt-4'>
-     <Link href='/' className='flex gap-2 flex-center'>
-        <Image
-        src='/assets/images/logo.svg'
-        width={30}
-        height={30}
-        className='object-contain'
-        
-        />
-        <p className='logo_text'>Promtopia</p>
-     </Link>
-  
-     {/* Desktop navigation */}
-     <div className='gap-4 md:gap-4 hidden md:flex'>
-     {session?.user ? (
-        <>
+    <nav className="flex-between items-center w-full pt-4">
+      <Link href="/" className="flex gap-2 flex-center">
+        <Image src="/assets/images/logo.svg" width={30} height={30} className="object-contain" />
+        <p className="logo_text">Promtopia</p>
+      </Link>
 
-    <Link href={`/create-prompt`} className='black_btn'>
-        Create Post
-    </Link>
-    <Button type='link' color='primary' className=''  onClick={signOut}> Sign Out</Button>
-    <Link href={`/profile`}>
-    <Image
-    src={session.user.image}
-    width={30}
-    height={30}
-    className='object-contain rounded-full'
-    
-    />
-    </Link>
-
-    
-
-        </>
-     ): (
-        <>
-        {providers && Object.values(providers).map((provider)=>(
+      {/* Desktop & Mobile navigation */}
+      <div className="gap-4 md:gap-4 hidden md:flex md:relative">
+        {session?.user ? (
+          <>
+            <Link href={`/create-prompt`} className="black_btn">
+              Create Post
+            </Link>
+            <Button type="link" color="primary" onClick={signOut}>
+              Sign Out
+            </Button>
+            <Link href={`/profile`}>
+              <Image src={session.user.image} width={30} height={30} className="object-contain rounded-full" />
+            </Link>
+          </>
+        ) : !loading && providersArray.length > 0 ? (
+          providersArray.map((provider) => (
             <div key={provider.name}>
-                <Button type='button' onClick={()=>signIn(provider.id)}> Sign In with {provider.name}</Button>
+              <Button type="button" onClick={() => signIn(provider.id)}>
+                Sign In with {provider.name}
+              </Button>
             </div>
-        ))}
+          ))
+        ) : null}
+      </div>
 
-
-        </>
-
-
-        
-     )}
-     </div>
-     {/* Mobilenavigation */}
-     <div className='md:hidden flex relative'>
-      {
-         session?.user ?(
+      {/* Mobile navigation */}
+      { session?.user ?(
          
          <>
           <Dropdown placement="bottom-end">
@@ -103,24 +84,18 @@ useEffect(()=>{
          
          </>):(
 
-            <>
+           <div className='flex flex-row '>
             {providers && Object.values(providers).map((provider)=>(
                 <div key={provider.name}>
                     <Button type='button' onClick={()=>signIn(provider.id)}> Sign In with {provider.name}</Button>
                 </div>
             ))}
-            </>
+           </div>
          )
         
-            
       }
-
-
-
-     </div>
-        
     </nav>
-  )
+  );
 }
 
-export default Nav
+export default Nav;

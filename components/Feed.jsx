@@ -15,6 +15,19 @@ function Feed() {
 
  const fetchPosts = async () => {
   setIsLoading(true);
+  try {
+    const response = await fetch("/api/prompt");
+    const data = await response.json();
+    setPosts(data);
+   
+    
+  } catch (error) {
+    console.log(error)
+    alert(error)
+    
+  }finally{
+    setIsLoading(false);
+  }
   const response = await fetch("/api/prompt");
   const data = await response.json();
   setPosts(data);

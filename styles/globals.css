@@ -137,7 +137,31 @@
 
 /* Nav Component */
 .logo_text {
-  @apply max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide;
+  @layer utilities {
+    .max-sm\:hidden {
+      @apply hidden max-sm:block;
+    }
+
+    .font-satoshi {
+      font-family: "Satoshi", sans-serif;
+    }
+
+    .font-semibold {
+      font-weight: 600;
+    }
+
+    .text-lg {
+      font-size: 1.125rem;
+    }
+
+    .text-black {
+      color: #000;
+    }
+
+    .tracking-wide {
+      letter-spacing: 0.025em;
+    }
+  }
 }
 
 .dropdown {

@@ -19,7 +19,7 @@ useEffect(()=>{
        setProviders(response)
    }
     setUpproviders()
-},[])
+},[session])
 
   return (
     <nav className='flex-between items-center w-full pt-4'>

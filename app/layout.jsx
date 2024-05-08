@@ -18,8 +18,9 @@ function Rootlayout({children}) {
             <div className='gradient'/>
             </div>
             <main className="app">
+            <Nav/>
               <Providers>
-                <Nav/>
+                
                 {children}
                 </Providers>
             </main>

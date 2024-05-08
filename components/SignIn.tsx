@@ -74,7 +74,7 @@ const onSubmit = async (values: any, actions: any) => {
       <CardHeader
                   variant="gradient"
                   color="gray"
-                  className="mb-4 flex flex-col gap-2 h-28 place-items-center"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}      >
+                  className="mb-4 grid gap-3 place-items-center"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}      >
         <GoogleSignInButton/>
         <GithubSignInButton/>
         <Typography variant="h3" color="white" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>

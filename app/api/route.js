@@ -2,7 +2,7 @@ import { connectToDatabase } from "@utils/database";
 import Prompt from "@models/prompt";
 import { NextResponse,NextRequest } from "next/server";
 
-export const GET=async(req:Request, res:Response) => {
+export const GET=async() => {
   try {
     console.log('this the all prompt')
     await connectToDatabase();

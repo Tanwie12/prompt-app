@@ -20,7 +20,7 @@ export function GoogleSignInButton({}: Props) {
     size="lg"
     variant="outlined"
     color="blue-gray"
-    className="flex items-center gap-3"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
+    className="flex mt-2 items-center gap-3"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
 <img
 src="https://docs.material-tailwind.com/icons/google.svg"
 alt="metamask"
@@ -44,9 +44,9 @@ const { data: session } = useSession()
     size="lg"
     variant="outlined"
     color="blue-gray"
-    className="flex items-center gap-3"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
+    className="flex my-2 items-center gap-3"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
 <img
-src="https://docs.material-tailwind.com/icons/google.svg"
+src="https://docs.material-tailwind.com/icons/.svg"
 alt="metamask"
 className="h-6 w-6"
 />

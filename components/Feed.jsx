@@ -2,10 +2,10 @@
 
 import React from 'react'
 import PromptCard from './PromptCard'
-import { useFetch } from '@hooks/useFetch'
+// import { useFetch } from '@hooks/useFetch'
 import {useEffect} from'react'
-import { Button, Spin } from 'antd'
-import { set } from 'mongoose'
+import {  Spin } from 'antd'
+
 
 function Feed() {
   
@@ -15,7 +15,7 @@ function Feed() {
 
  const fetchPosts = async () => {
   setIsLoading(true);
-  const response = await fetch("/api/prompt/all");
+  const response = await fetch("/api/prompt");
   const data = await response.json();
   setPosts(data);
   setIsLoading(false);

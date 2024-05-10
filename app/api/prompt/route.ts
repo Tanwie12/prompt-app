@@ -1,12 +1,12 @@
 import { connectToDatabase } from "@utils/database";
 import Prompt from "@models/prompt";
+import { NextResponse,NextRequest } from "next/server";
 
-
-export const GET=async() => {
+export const GET=async(req:Request, {params}:{params:{id:string}}) => {
   try {
-    console.log('this the all prompt')
+    console.log('this users all prompt')
     await connectToDatabase();
-    const prompts = await Prompt.findAll({}).populate('creator');
+    const prompts = await Prompt.find({}).populate('creator')
    
     return new Response(JSON.stringify(prompts), {
       headers: {

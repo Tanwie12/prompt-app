@@ -1,6 +1,6 @@
 import { connectToDatabase } from "@utils/database";
 import Prompt from "@models/prompt";
-import { NextResponse,NextRequest } from "next/server";
+
 
 export const GET=async(req:Request, {params}:{params:{id:string}}) => {
   try {

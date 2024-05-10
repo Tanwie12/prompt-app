@@ -16,8 +16,7 @@ type Props = {
 }
 
 function PromptCard({post,handleTagClick,handleDelete,handleEdit,isLoading}: Props) {
-  console.log("the post data")
-  console.log(post)
+
  const pathName=usePathname()
 const router = useRouter()
 const { data: session } = useSession()

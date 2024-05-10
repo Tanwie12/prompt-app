@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios"; // Import Axios
 import PromptCard from "./PromptCard";
+import { Button } from "antd";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -31,6 +32,7 @@ const Feed = () => {
       const response = await axios.get("/api/prompt"); // Using Axios to make GET request
       setAllPosts(response.data);
     } catch (error) {
+      alert(error)
       console.error("Error fetching posts:", error);
     }
   };
@@ -70,6 +72,7 @@ const Feed = () => {
 
   return (
     <section className='feed'>
+      <Button onClick={fetchPosts()}>Refresh</Button>
       <form className='relative w-full flex-center'>
         <input
           type='text'

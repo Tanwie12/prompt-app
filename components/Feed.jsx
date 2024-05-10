@@ -29,6 +29,7 @@ const Feed = () => {
 
   const fetchPosts = async () => {
     try {
+      alert('fetching post')
       const response = await axios.get("/api/prompt"); // Using Axios to make GET request
       setAllPosts(response.data);
     } catch (error) {

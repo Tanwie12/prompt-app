@@ -6,23 +6,24 @@ let isConnected = false
 
 
 export const connectToDatabase = async () => {
-    if (isConnected) {
-        console.log("Already connected")
-        return
-    }
+    mongoose.set('strictQuery', true);
 
-    if (process.env.NODE_ENV !== "production") {
-        dotenv.config()
-    }
+  if(isConnected) {
+    console.log('MongoDB is already connected');
+    return;
+  }
 
-    try {
-        await mongoose.connect(process.env.MONGODB_URI, {
-            dbName:"share_prompt",
-            
-        })
-        isConnected = true
-        console.log("Connected to database")
-    } catch (error) {
-        console.log(error)
-    }
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      dbName: "share_prompt",
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+
+    isConnected = true;
+
+    console.log('MongoDB connected')
+  } catch (error) {
+    console.log(error);
+  }
 }
